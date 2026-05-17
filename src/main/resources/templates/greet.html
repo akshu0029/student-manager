@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Greet</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <h2>🎓 Student Manager</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/students">Students</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero">
+        <h1 th:text="'Hello, ' + ${name} + '! 👋'">Hello!</h1>
+        <p>Welcome to Student Manager</p>
+        <a href="/" class="btn btn-primary">Go Back Home</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* ── General ─────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2, #f64f59);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+nav {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+nav h2 { font-size: 1.4rem; font-weight: 700; }
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+nav a:hover { opacity: 1; }
+
+/* ── Container ────────────────────────────────────────────── */
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.card h1, .card h2 {
+    color: #4a0080;
+    margin-bottom: 1.2rem;
+}
+
+/* ── Table ────────────────────────────────────────────────── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.8rem 1rem;
+    text-align: left;
+}
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+}
+tr:hover td { background: #f5f0ff; }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s, opacity 0.2s;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+.btn-danger  { background: linear-gradient(135deg, #f64f59, #c0392b); color: white; }
+.btn-warning { background: linear-gradient(135deg, #f7971e, #ffd200); color: white; }
+.btn-logout  { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; }
+
+/* ── Form ─────────────────────────────────────────────────── */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+label {
+    font-weight: 600;
+    color: #4a0080;
+    margin-bottom: 0.3rem;
+}
+input[type=text],
+input[type=email],
+input[type=password] {
+    padding: 0.6rem 0.9rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+input:focus {
+    outline: none;
+    border-color: #764ba2;
+}
+.error { color: #f64f59; font-size: 0.85rem; margin-top: 0.2rem; }
+
+/* ── Login card ───────────────────────────────────────────── */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.login-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.login-card h1 {
+    color: #4a0080;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero {
+    text-align: center;
+    color: white;
+    padding: 4rem 1rem;
+}
+.hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+.hero p  { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+
+/* ── Stat Box ─────────────────────────────────────────────── */
+.stat-box {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem 3rem;
+    text-align: center;
+}
+.stat-box h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.3rem;
+}
+.stat-box p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* ── Select ───────────────────────────────────────────────── */
+select {
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+select:focus {
+    outline: none;
+    border-color: #764ba2;
+}

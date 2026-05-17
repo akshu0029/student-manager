@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <h2>🎓 Student Manager</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/students">Students</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h1>Edit Student</h1>
+
+        <!-- Show current photo -->
+        <div th:if="${student.photo != null}" style="margin-bottom:1rem;">
+            <label>Current Photo:</label><br>
+            <img th:src="@{/uploads/{photo}(photo=${student.photo})}"
+                 style="width:100px; height:100px; border-radius:50%; object-fit:cover; margin-top:0.5rem;">
+        </div>
+
+        <form th:action="@{/students/edit/{id}(id=${student.id})}"
+              th:object="${student}" method="post"
+              enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" th:field="*{name}" placeholder="Student name">
+                <span th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" th:field="*{email}" placeholder="Student email">
+                <span th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>New Photo (leave empty to keep current)</label>
+                <input type="file" name="photoFile" accept="image/*">
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/students" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

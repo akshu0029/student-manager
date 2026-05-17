@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <h2>🎓 Student Manager</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/students">Students</a>
+        <form th:action="@{/logout}" method="post" style="display:inline">
+            <button type="submit" class="btn btn-logout">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- Dashboard -->
+    <div class="card" style="text-align:center">
+        <h1>📊 Dashboard</h1>
+        <div style="display:flex; justify-content:center; gap:2rem; margin-top:1rem;">
+            <div class="stat-box">
+                <h2 th:text="${totalStudents}">0</h2>
+                <p>Total Students</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Sort -->
+    <div class="card">
+        <form th:action="@{/students}" method="get">
+            <div style="display:flex; gap:1rem; align-items:flex-end;">
+                <div class="form-group" style="flex:1; margin:0">
+                    <label>🔍 Search by Name</label>
+                    <input type="text" name="search"
+                           th:value="${search}"
+                           placeholder="Type a name...">
+                </div>
+                <div class="form-group" style="margin:0">
+                    <label>Sort By</label>
+                    <select name="sortBy">
+                        <option value="name"  th:selected="${sortBy == 'name'}">Name</option>
+                        <option value="email" th:selected="${sortBy == 'email'}">Email</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="/students" class="btn btn-warning">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Student Table -->
+    <div class="card">
+        <h2>All Students</h2>
+
+        <div th:if="${students.isEmpty()}"
+             style="text-align:center; color:#888; padding:2rem;">
+            No students found!
+        </div>
+
+        <table th:unless="${students.isEmpty()}">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td>
+                        <img th:if="${student.photo != null}"
+                             th:src="@{/uploads/{photo}(photo=${student.photo})}"
+                             style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
+                        <span th:unless="${student.photo != null}">No photo</span>
+                    </td>
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td>
+                        <a th:href="@{/students/edit/{id}(id=${student.id})}"
+                           class="btn btn-warning">Edit</a>
+                        <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                           class="btn btn-danger"
+                           onclick="return confirm('Delete this student?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div style="display:flex; gap:0.5rem; margin-top:1rem; justify-content:center;"
+             th:if="${totalPages > 1}">
+            <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+               th:href="@{/students(page=${i}, search=${search}, sortBy=${sortBy})}"
+               th:text="${i + 1}"
+               th:class="${i == currentPage} ? 'btn btn-primary' : 'btn btn-warning'">
+            </a>
+        </div>
+    </div>
+
+    <!-- Add Student Form -->
+    <div class="card">
+        <h2>Add New Student</h2>
+        <form th:action="@{/students/add}" th:object="${newStudent}"
+              method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" th:field="*{name}" placeholder="Student name">
+                <span th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" th:field="*{email}" placeholder="Student email">
+                <span th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Photo</label>
+                <input type="file" name="photoFile" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
